@@ -1,0 +1,270 @@
+enable: true
+interval: 0
+items:
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^喂.*星尘.*
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - “我吃了你，不准喂星尘！星尘是爱乌的好朋友，爱乌不会吃的。”爱乌一口吞下了{$t玩家_RAW}，打了个饱嗝。
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 做token
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                做token的网站 http://rolladvantage.com/tokenstamp/
+                与 https://thefatefulforce.com/battle-resources/token-creator/ （推荐第二个）
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 重置好感度
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 好感度已经变为{%$m好感度=0%}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 查询好感度
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '{核心:骰子名字}对{$t玩家}的好感度现在是{$m好感度}'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^喂(\S+)
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '{% if 1 {$t输出 = '' “嗷呜，吃掉啦，让你的骰子重一些嗷” ''} %} {核心:骰子名字}吞下了你投喂的{$t1}，爱乌食欲指数为{% $t出目 = 2d6 %} {% if $t出目 >= 8 { $m好感度 = $m好感度 + 1d3 } else {$t输出=` “呸呸，好难吃啊！” `} %} {$t输出}'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 抱抱爱乌
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {%
+                    $m好感度 > 25 ? '“你把我喂大了....”，几乎一人高的爱乌窝在一旁，说道，“也可能是我的主人送来了更多的力量来帮你....你要骑在我的背上吗？”',
+                    $m好感度 > 18? '爱乌冲进了你的怀里！“我知道你拿吃的了，给我嘛...”，小龙的周围萦绕着令人愉悦的气氛，她对你的到来很开心',
+                    $m好感度 > 10 ? '爱乌看到你过来很高兴，“有饼干吗，有饼干吗？”，她蝴蝶般的翅膀荡漾着斑斓的色彩，尾巴在无形的微风中轻轻舞动，悬浮在你面前寻求点心',
+                    $m好感度 > 5 ? '爱乌好奇的目光注视着你，她对你一旁放着的饼干虎视眈眈！',
+                    1 ? '爱乌警惕地看着你，她扑闪着翅膀飞到半空，冲着你喷出了一口吐息，随后快速逃开，骰体质豁免'
+                %}
+              - 1
+    - enable: false
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 指令3好感度设置为15
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 好感度已经变为{%$m好感度=15%}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^查询(\S+)色孽浓度
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '{$t1}色孽浓度很低，仅仅能释放出一道令人兴奋的耀眼彩虹...“其实没有什么感觉，就是很爽而已”——来自一位幸运的士兵'
+              - 1
+            - - '{$t1}的触碰能让人顺从而极度愉悦状态...“被{$t1}摸到后要坏掉了...”——一个受害者如此是说，ta至今还在疗养院戒疗。'
+              - 1
+            - - '{$t1}最喜欢用混沌能量构成的长鞭以悦耳的噼啪声抽打乐意的人...“来！快再来！” ，“如你所愿！”，“噢噢噢噢哦啊——” 帝国间谍冒着生命危险在一间密闭小屋内窃听到的对话'
+              - 1
+            - - '{$t1}带着芳香的喘息有着直达灵魂的魅力，“...在遇上{$t1}之后，我与{$t1}每日都贴近在一起，那是一段快乐无比的时光...直到我从内到外被此玷污..但这也挺不错的，是吗？”——一位曾接待过{$t1}的站街者'
+              - 1
+            - - '{$t1}掌握着巧舌如簧，一个奇特的魔法——它可以让受术者的舌头变得细长弯曲，以淫秽的姿态钻进敌人的任意地方，威力可控，强则击穿金属护甲与魔法屏障，弱可做一些奇怪的事情。“{$t1}的滋味真不错啊....”——不愿透露姓名的一位大帝说道'
+              - 1
+            - - '{$t1}的力量偏向于控场与作战，因此ta的名号在军团中更为响亮...许多“健硕”与“娇美”的士兵都投入了{$t1}的麾下，ta的愉悦之刑与甜美威胁一个对内一个对外，前者将痛苦变为快感，后者将激烈的感觉填入目标的脑海。“{$t1}军团的战斗力毋庸置疑，但日后的打扫战场与宣传工作是个大难题，因此我就跑了...那场景叫一个粗犷啊..”——一段被掐断的视频访谈，在某星球上审核未通过'
+              - 1
+            - - '{$t1}会将ta参与的战斗转变为令人血脉偾张的艺术，愉悦抽搐便是{$t1}的拿衣好戏，一般的治疗法术对ta造成的伤害一点用也没有。“啊呜...呜啊...唔唔唔.啊..”—— 一个经历若干年治疗的前{$t1}敌人'
+              - 1
+            - - '{$t1}的秘传颇受地下圈子的追捧，ta制作的肉体傀儡总是会被抢购一空。这个法术生效后，目标的眼睛与其今后的主人相同，而皮肤变得通红并出汗，好像在因为什么而感到兴奋...“但那是相当靠谱的保镖与仆人！不要以外貌取人偶啊— 只是一些内心的癖好而已...要不你接受，要么你就在家里偷偷用，反正独此一家！” 前知名记者转述{$t1}的访谈录，随后他便失踪了'
+              - 1
+            - - 血肉诅咒——这个听起来可怖的超自然能力其实并不那么令人害怕，起码对于{$t1}来说是这样的。原本能让生物长出可怕的、无法控制的脂肪、肌腱和肌肉将其淹没的诡异魔法被ta用来开了家星际整容店。“可不是我做广告，{$t1}的法子绝对有效，就是...感觉ta占了我便宜，但那低廉的收费与完美的效果还是令人满意的”——大多数顾客的想法
+              - 1
+            - - '{$t1}的黄金光束并不是个正派魔法，这种强大的控制系法术是{$t1}的心灵世界投影，方有让多数 生物无法豁免的成果，其受术目标会被愉快麻木的情绪充满，然后站在原地而漫不经心地傻笑，ta以此扰乱严肃的社交场合为一大乐趣。“...什么也不想...只有无尽的乐趣...感觉一切都是空虚的..除了{$t1}酱...”——  一位未被高阶心灵术士解咒的受害者说道'
+              - 1
+            - - 神奇的欲望面具由{$t1}打造，这种粉红色的微粒会轻易引起强烈兴奋的快感而没有成瘾性，并能立即抵消暴饮暴食、酗酒和睡眠不足的影响，以及免去伤害或虐待的外在迹象加以治疗，甚至还能大幅更加魅力属性令人更为性感，最重要的是没有太多的副作用。“适当的放纵有益身心健康，欲望面具，您的最佳选择”——宣传词
+              - 1
+            - - '{$t1}是一位行走星间的传奇吟游诗人，曾改进了“登龙术”使其对更多的物种生效，被大量悲风教徒视作圣人。但ta更为出名的事迹是创作了色孽舞曲——一种引导“色孽”之力，令附近的所有目标被迫跳起淫秽舞蹈的曲调，因此这位诗人被各大星球所通缉驱逐。“神啊，{$t1}到底做了什么... ”—— 面对着活化后狂舞的小行星带，一位路过的船长面露震惊...但很快，他和他的船员也加入了其中，直到半个星球被巡航舰队的主炮齐射扫平'
+              - 1
+            - - 诱惑之歌，如同ta的名字，这是一项流传广泛的法术，创立此道的{$t1}最喜欢用此满足别人心中的欲望...“我曾经想去找一头龙...{$t1}的歌声激励了我，因此，我成为了一名伟大的吟游诗人！登龙术，我来了！”一位即将晋升为传奇的诗人发表了他的致谢词
+              - 1
+            - - '{$t1}擅长魅魔法术，这种将灵魂将从昏迷的身体中解脱出来，漂向混沌领域的魔法能让施法者们摆脱肉体的限制，带给他人更多剧烈的快感。“{$t1}甚至超越了我们，一些道理还得向ta请教。”—— 一位福音族（类魅魔生物的宇宙统称，出自小说道猴）学者'
+              - 1
+            - - 判断失败...读数过载....坏...掉了 ....（停顿）
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchPrefix
+          value: '[CQ:image,file=fa394ae989b185ec25e906bd56a0f56f.image'
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 'CQ:image,file=https://图片地址/token/QQ图片20220723192903.jpg]'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchFuzzy
+          value: 爱乌我爱你
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - “爱乌也喜欢{$t玩家_RAW}的...”小龙高兴地扑闪着蝴蝶般的翅膀，用脑袋轻轻蹭着{$t玩家_RAW}的手指
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 随机
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '[CQ:image,file=https://api.r10086.com/img-api.php?type=%E5%8A%A8%E6%BC%AB%E7%BB%BC%E5%90%881]'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 指令手册
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 官网指令手册在这里  https://dice.weizaima.com/manual/
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^地图网址为(\S+)
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '{%if 1 {$g地图=$t1}%} “爱乌记住啦，忘了可以回复 在线地图 来查询”'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 在线地图
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - (“爱乌一直记得的...本群的在线地图是 {$g地图} ”）
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 开启dnd法术卡
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {%if 1 {$g法术卡=1}%} dnd法术卡牌面展示功能已开启，请发送“我的职业是xxx”，设定所用职；如果打出法术后无响应，也可以发送“可用法术列表”来查看收录法术的在线文档。
+                声明：本功能只收录了phb中的法术，法术卡原作者为 @镜像烛堡的白狼，卡牌图片由 @星尘 的CDN云端加载。
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 关闭dnd法术卡
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '{%if 1 {$g法术卡=0}%} dnd法术卡牌面展示功能已关闭'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^我的职业是(\S+)
+        - condType: exprTrue
+          value: $g法术卡==1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '{%if 1 {$m职业=$t1}%} 已记录，您的职业是{$t1}，若录入错误则无法正常使用本功能，可用职业为：德鲁伊、法师、牧师、圣武士、诗人、术士、邪术师、游侠。您可以发送“查询我的施法职业”来查看，同时使用“打出xx”来让骰子展示法术卡。'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 查询我的施法职业
+        - condType: exprTrue
+          value: $g法术卡==1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 您的职业为{$m职业}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^打出(\S+)
+        - condType: exprTrue
+          value: $g法术卡==1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 'CQ:image,file=https:/请自行修改图片放置位置/dnd_spell/{$m职业}/{$t1}.jpg]'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 可用法术列表
+        - condType: exprTrue
+          value: $g法术卡==1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - https://docs.qq.com/sheet/DUEtQSlZpZEpQdWxL
+              - 1

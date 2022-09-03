@@ -1,0 +1,38 @@
+enable: true
+interval: 0
+items:
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 开始踢海豹
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - "{% \n if $gSealKick==0 {$gSealKick=1;$gSealDistance=100;$t输出=`踢海豹的游戏开始了。目前还有{$gSealDistance}格要走。`} else {$t输出=`你们似乎有正在进行的游戏。请输入“踢海豹”继续游戏，或“结束踢海豹”结束游戏。`}\n %}\n {$t输出}"
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 踢海豹
+        - condType: exprTrue
+          value: $gSealKick==1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - "{% \n if 1 {$t单次步数=d6;$t海豹逃走=d100;$gSealDistance=$gSealDistance-$t单次步数;$t输出0=`{$t玩家}一脚踢向海豹，踢了{$t单次步数}格。`};\n if $gSealDistance==0 {$gSealKick=0;$t输出1=`\\n海豹抵达了终点。恭喜{$t玩家}获得了胜利。放归前别忘了给海豹一个大比兜。`};\nif $gSealDistance>0 {$t输出1=`\\n海豹现在离终点还有{$gSealDistance}格。`};\nif $gSealDistance<0 {$gSealDistance=-$gSealDistance;$t输出1=`\\n踢过头了！海豹现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==93 {$t判定=1;$gSealDistance=56;$t输出2=`\\n触发了梯子事件！海豹从第7格爬到了第44格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==39&&$t判定==0 {$t判定=1;$gSealDistance=87;$t输出2=`\\n触发了滑道事件！海豹从第61格滑到了第13格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==5&&$t判定==0 {$t判定=1;$gSealDistance=74;$t输出2=`\\n触发了滑道事件！海豹从第95格滑到了第26格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==65&&$t判定==0 {$t判定=1;$gSealDistance=28;$t输出2=`\\n触发了梯子事件！海豹从第35格爬到了第72格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==48&&$t判定==0 {$t判定=1;$gSealDistance=63;$t输出2=`\\n触发了滑道事件！海豹从第52格滑到了第37格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==77&&$t判定==0 {$t判定=1;$gSealDistance=49;$t输出2=`\\n触发了梯子事件！海豹从第23格爬到了第51格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==61&&$t判定==0 {$t判定=1;$gSealDistance=84;$t输出2=`\\n触发了滑道事件！海豹从第39格滑到了第16格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==80&&$t判定==0 {$t判定=1;$gSealDistance=21;$t输出2=`\\n触发了梯子事件！海豹从第20格爬到了第79格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==15&&$t判定==0 {$t判定=1;$gSealDistance=35;$t输出2=`\\n触发了滑道事件！海豹从第85格滑到了第65格，现在离终点还有{$gSealDistance}格。`};\n if $gSealDistance==17&&$t判定==0 {$t判定=1;$gSealDistance=10;$t输出2=`\\n触发了梯子事件！海豹从第83格爬到了第90格，现在离终点还有{$gSealDistance}格。`};\nif $t判定==0 {$t输出2=\"\"} else {$t判定=0};\n if $t海豹逃走==1 {$gSealKick=0;$t输出3=`\\n海豹的逃走骰：1d100=1！大成功！海豹逃走了！游戏终止！`} else {$t输出3=`\\n海豹的逃走骰：1d100={$t海豹逃走}，海豹没能逃脱凶猛恶汉们的掌控！`}\n  %}\n{$t输出0}{$t输出1}{$t输出2}{$t输出3}"
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 结束踢海豹
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - "{% \n if $gSealKick==1 {$gSealKick=0;$t输出=`要结束游戏了吗？好的。海豹现在离终点还有{$gSealDistance}格，不过你们放走了它，并且给了它一个大比兜。`} else {$t输出=`并没有海豹在被踢的样子。输入“开始踢海豹”以抓一只新的海豹开始游戏。`}\n %}\n {$t输出}"
+              - 1

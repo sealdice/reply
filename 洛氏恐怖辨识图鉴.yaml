@@ -1,0 +1,326 @@
+enable: true
+interval: 0
+items:
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 辨识图鉴
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 有没有结束的查询，要是想要开始一个新查询，请先输入“结束辨识”。
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 辨识图鉴
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 来啦来啦，是要查洛氏恐怖辨识图鉴是吧。你准备好了就和我说一声啊！\n（输入“开始辨识”来开始本次查询，在查询过程中随时可以输入“结束辨识”来结束本次查询，请保证回答之间有一定时间间隔避免骰子吞掉问题）{% if 1 {$gBookSearch = 1} %}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 开始辨识
+        - condType: exprTrue
+          value: $gBookSearch == 0
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 你在说什么？要先说“辨识图鉴”啊！
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 开始辨识
+        - condType: exprTrue
+          value: $gBookSearch == 1
+        - condType: exprTrue
+          value: $gQuestionMark != 0
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 你已经开始查书了啊？要是忘记了进度和我说“结束辨识”我就可以当什么都没发生过！
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 开始辨识
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - "*翻书\\n先问一句，你要查的是幻梦境生物吗？（回复“是”或者“否”）{% \nif 1 {$gQuestionMark = -1}%}"
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 结束辨识
+        - condType: exprTrue
+          value: $gBookSearch == 0
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 你要结束一件没有开始的事情吗？真是深奥啊……但更大的可能是你记错了对吧？
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 结束辨识
+        - condType: exprTrue
+          value: $gQuestionMark == 0 || $gQuestionMark == -1
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - "{% \nif 1 {$gBookSearch = 0;$gQuestionMark = 0} \n%}\n什么都不查吗？浪费我感情，溜了溜了！\\n*合上书"
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 结束辨识
+        - condType: exprTrue
+          value: $gBookSearch == 1
+        - condType: exprTrue
+          value: $gQuestionMark != -1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {% if 1 {$gBookSearch = 0;$gQuestionMark = 0}%}
+                就查到这里吗？好吧，希望你不是太笨了以至于回答不上问题，而是有答案了吧！\n*飞走
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 是
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                *翻书\n那么，就从这个问题开始吧：它是飞在空中还是漂浮在空中？\n(飞在空中回复“1”，漂浮在空中回复“2”）
+                {% if 1 {$gQuestionMark = 21} %}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 否
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                *翻书\n那么，就从这个问题开始吧：它是隐形的吗？\n(隐形的回复“1”，不隐形回复“2”）
+                {% if 1 {$gQuestionMark = 11} %}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: "1"
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {%
+                if $gQuestionMark == 12 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是飞天水螅！\n（本次辨识结束）'};
+                if $gQuestionMark == 11 {$gQuestionMark = 12;$gOutPrint = '那么接下来的问题是：它发出什么声音？\n（发出怪异的笛声与哨声回复“1”；发出窃笑声回复“2”）'};
+                if $gQuestionMark == 15 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是惊惧猎手！\n（本次辨识结束）'};
+                if $gQuestionMark == 14 {$gQuestionMark = 15;$gOutPrint = '那么接下来的问题是：它生有翅膀吗？\n（有翅膀回复“1”；没有翅膀回复“2”）'};
+                if $gQuestionMark == 13 {$gQuestionMark = 14;$gOutPrint = '那么接下来的问题是：它的外形像蠕虫吗？\n（像回复“1”；不像回复“2”）'};
+                if $gQuestionMark == 16 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是钻地魔虫！\n（本次辨识结束）'};
+                if $gQuestionMark == 129 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是克苏鲁的星之眷族！\n（本次辨识结束）'};
+                if $gQuestionMark == 111 {$gQuestionMark = 129;$gOutPrint = '那么接下来的问题是：它头部的形态是——？\n（覆有触手且如同章鱼一般，该生物生有爪与狭窄的翅膀回复“1”；模糊的马类特征，该生物有庞大的翅膀但却没有触手回复“2”）'};
+                if $gQuestionMark == 110{$gQuestionMark = 111;$gOutPrint = '那么接下来的问题是：它的体型是——？\n（如大象一般庞大，甚至更大回复“1”；比起人类大不了多少回复“2”）'};
+                if $gQuestionMark == 17 {$gQuestionMark = 110;$gOutPrint = '那么接下来的问题是：它生有翅膀吗？\n（有翅膀回复“1”；没有翅膀回复“2”）'};
+                if $gQuestionMark == 18 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是犹格索托斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 19 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是黑山羊幼崽！\n（本次辨识结束）'};
+                if $gQuestionMark == 113 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是夜魇！\n（本次辨识结束）'};
+                if $gQuestionMark == 112 {$gQuestionMark = 113;$gOutPrint = '那么接下来的问题是：它生有——？\n（角与黑色的皮肤回复“1”；粉色的甲壳生物外皮回复“2”）'};
+                if $gQuestionMark == 114 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是古老者！\n（本次辨识结束）'};
+                if $gQuestionMark == 115 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是伟大种族伊斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 116 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是伊塔库亚！\n（本次辨识结束）'};
+                if $gQuestionMark == 117 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是月兽！\n（本次辨识结束）'};
+                if $gQuestionMark == 119 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是妖鬼！\n（本次辨识结束）'};
+                if $gQuestionMark == 118 {$gQuestionMark = 119;$gOutPrint = '那么接下来的问题是：它的后腿——？\n（粗壮且适合跳跃回复“1”；并不粗壮回复“2”）'};
+                if $gQuestionMark == 120 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是空鬼！\n（本次辨识结束）'};
+                if $gQuestionMark == 121 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是深潜者！\n（本次辨识结束）'};
+                if $gQuestionMark == 122 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是飞天水螅！\n（本次辨识结束）'};
+                if $gQuestionMark == 124 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是克苏鲁的星之眷族！\n（本次辨识结束）'};
+                if $gQuestionMark == 123 {$gQuestionMark = 124;$gOutPrint = '那么接下来的问题是：它生有——？\n（一颗特征模糊的章鱼头部与蝙蝠般的翅膀，体型庞大回复“1”；蟾蜍般的形体且没有翅膀回复“2”）'};
+                if $gQuestionMark == 125 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是无形眷族！\n（本次辨识结束）'};
+                if $gQuestionMark == 127 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是莎布尼古拉斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 126 {$gQuestionMark = 127;$gOutPrint = '那么接下来的问题是：它的体型——？\n（巨大的，且呈现为云雾般的外形回复“1”；中等的，且呈现为触手或青蛙般的外形回复“2”）'};
+                if $gQuestionMark == 128 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是修格斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 23 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是夏塔克鸟！\n（本次辨识结束）'};
+                if $gQuestionMark == 22 {$gQuestionMark = 23;$gOutPrint = '那么接下来的问题是：它巨大吗？\n（是的，它有三十英寸以上的翼展并且长有鳞片回复“1”；不，无论是否有翅膀回复“2”）'};
+                if $gQuestionMark == 21 {$gQuestionMark = 22;$gOutPrint = '那么接下来的问题是：它有翅膀吗？\n（有翅膀回复“1”；没翅膀回复“2”）'};
+                if $gQuestionMark == 25 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是蝴蝶龙！\n（本次辨识结束）'};
+                if $gQuestionMark == 24 {$gQuestionMark = 25;$gOutPrint = '那么接下来的问题是：它——？\n（色彩鲜艳，奇形怪状，具有眼睛和口器回复“1”；感觉油腻，呈黑色，没有面部特征回复“2”）'};
+                if $gQuestionMark == 26 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是麦格鸟！\n（本次辨识结束）'};
+                if $gQuestionMark == 29 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是来自土星的猫！\n（本次辨识结束）'};
+                if $gQuestionMark == 28 {$gQuestionMark = 29;$gOutPrint = '那么接下来的问题是：它长得像猫吗？\n（差不多，还能做星间飞行回复“1”；不，而且它浮在空中回复“2”）'};
+                if $gQuestionMark == 27 {$gQuestionMark = 28;$gOutPrint = '那么接下来的问题是：它发热吗？\n（发热回复“1”；不发热回复“2”）'};
+                if $gQuestionMark == 210 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是明灯飞蜥！\n（本次辨识结束）'};
+                if $gQuestionMark == 212 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是红足蛙普！\n（本次辨识结束）'};
+                if $gQuestionMark == 211 {$gQuestionMark = 212;$gOutPrint = '那么接下来的问题是：它的腿是？\n（一共有九只，足部为鲜红色，并且它没有视觉回复“1”；少于九只并且也没有红色斑点回复“2”）'};
+                if $gQuestionMark == 214 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是波库鲁格！\n（本次辨识结束）'};
+                if $gQuestionMark == 213 {$gQuestionMark = 214;$gOutPrint = '那么接下来的问题是：它的触手是？\n（长在下颌，而且它长得像蜥蜴回复“1”；长在鼻子的位置，而且它是大型的无眼癞蛤蟆状生物回复“2”；长在口器部位，但它是好奇的小型长毛生物回复“3”）'};
+                if $gQuestionMark == 215 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是撒托古亚！\n（本次辨识结束）'};
+                if $gQuestionMark == 216 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是伏尼斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 218 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是阿特拉克·纳克亚！\n（本次辨识结束）'};
+                if $gQuestionMark == 217 {$gQuestionMark = 218;$gOutPrint = '那么接下来的问题是：那这个蜘蛛状的生物是？\n（呈紫红色，并且有一张像人一样的脸回复“1”；呈灰紫色渐变，并且有蜘蛛状的脸回复“2”）'};
+                if $gQuestionMark == 220 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是蛇人！\n（本次辨识结束）'};
+                if $gQuestionMark == 219 {$gQuestionMark = 220;$gOutPrint = '那么接下来的问题是：它的表皮是？\n（就像蛇一样，而且有鳞回复“1”；无鳞，并且长有毛发回复“2”）'};
+                if $gQuestionMark == 221 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是祖各！\n（本次辨识结束）'};
+                if $gQuestionMark == 222 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是妖鬼！\n（本次辨识结束）'};
+                if $gQuestionMark == 224 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是食尸鬼！\n（本次辨识结束）'};
+                if $gQuestionMark == 223 {$gQuestionMark = 224;$gOutPrint = '那么接下来的问题是：这只人类尺寸的生物是？\n（长得和人几乎一样，没有角和尾巴，以及动作表现得类似犬类回复“1”；看起来就像人类，但有着神的威严与较长的脸型回复“2”；有角，嘴很宽大，有一条退化的尾巴回复“3”）'};
+                if $gQuestionMark == 225 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是古革巨人！\n（本次辨识结束）'};
+                if $gQuestionMark == 226 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是月兽！\n（本次辨识结束）'};
+                if $gQuestionMark == 228 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是阿布霍斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 227 {$gQuestionMark = 228;$gOutPrint = '那么接下来的问题是：它的外形——？\n（就像一片充满了不定形之物的水池，它可能无法离开某个洞穴，并且会不停地生出后代回复“1”；并非不定形，也不会一直生产后代回复“2”）'};
+                if $gQuestionMark == 229 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是帕格的火焰蠕虫！\n（本次辨识结束）'};
+                if $gQuestionMark == 230 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是格诺族！\n（本次辨识结束）'};
+                if $gQuestionMark == 231 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是祖各！\n（本次辨识结束）'};
+                if $gQuestionMark == 232 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是伯帕斯！\n（本次辨识结束）'}
+                %}
+                *翻书\n{$gOutPrint}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: "2"
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {%
+                if $gQuestionMark == 127 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是外神仆役！\n（本次辨识结束）'};
+                if $gQuestionMark == 128 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是阿撒托斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 126 {$gQuestionMark = 128;$gOutPrint = '那么接下来的问题是：它生有——？\n（不断生出的眼睛、细小触手与其他器官，它依靠滚动的方式前进回复“1”；没有眼睛，且仅依靠延展自身的方式滚动回复“2”）'};
+                if $gQuestionMark == 125 {$gQuestionMark = 126;$gOutPrint = '那么接下来的问题是：它生有嘴吗？\n（有嘴回复“1”；没有嘴回复“2”）'};
+                if $gQuestionMark == 123 {$gQuestionMark = 125;$gOutPrint = '那么接下来的问题是：它的颜色是——？\n（不散发磷光的黑色，该生物是流体回复“1”；该生物可能是流体，但却并非黑色，即便是黑色也带有磷光回复“2”）'};
+                if $gQuestionMark == 122 {$gQuestionMark = 123;$gOutPrint = '那么接下来的问题是：它生有——？\n（基础的形体，包括具有高度延展性的头、胳膊、腿回复“1”；没有固定的肢体，几乎是不定形的回复“2”）'};
+                if $gQuestionMark == 13 {$gQuestionMark = 122;$gOutPrint = '那么接下来的问题是：它的身躯——？\n（通常隐形，且总是发出哨声并伴随着强风回复“1”；通常可见，且该生物与风没有联系回复“2”）'};
+                if $gQuestionMark == 11 {$gQuestionMark = 13;$gOutPrint = '那么接下来的问题是：它有固定的形体吗？\n（有固定的形体回复“1”；没有固定的形体回复“2”；它有许多各自独立的形体回复“3”）'};
+                if $gQuestionMark == 12 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是星之精！\n（本次辨识结束）'};
+                if $gQuestionMark == 19 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是星之精！\n（本次辨识结束）'};
+                if $gQuestionMark == 18 {$gQuestionMark = 19;$gOutPrint = '那么接下来的问题是：它生有——？\n（蹄状的足部、四条粗壮的触手与许多细小的触手回复“1”；鸟一样的利爪，口器末端生有许多细小触手回复“2”）'};
+                if $gQuestionMark == 17 {$gQuestionMark = 18;$gOutPrint = '那么接下来的问题是：它的躯体是否由许多分散的球体组成？\n（是回复“1”；否回复“2”）'};
+                if $gQuestionMark == 14 {$gQuestionMark = 17;$gOutPrint = '那么接下来的问题是：它生有头颅吗？\n（有头颅回复“1”；没有头颅回复“2”）'};
+                if $gQuestionMark == 16 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是巨噬蠕虫！\n（本次辨识结束）'};
+                if $gQuestionMark == 15 {$gQuestionMark = 16;$gOutPrint = '那么接下来的问题是：它生有明显的触手吗？\n（有明显触手回复“1”；没有明显触手回复“2”）'};
+                if $gQuestionMark == 118 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是廷达罗斯猎犬！\n（本次辨识结束）'};
+                if $gQuestionMark == 117 {$gQuestionMark = 118;$gOutPrint = '那么接下来的问题是：它是双足行走的吗？\n（是双足行走回复“1”；不是双足行走回复“2”）'};
+                if $gQuestionMark == 116 {$gQuestionMark = 117;$gOutPrint = '那么接下来的问题是：它生有——？\n（带有触手的面部与高度可塑的躯体回复“1”；没有触手且有稳定的形体，有可能会凭空出现回复“2”）'};
+                if $gQuestionMark == 115 {$gQuestionMark = 116;$gOutPrint = '那么接下来的问题是：它的体型——？\n（巨大的（高于20英尺）回复“1”；中等的回复“2”）'};
+                if $gQuestionMark == 110{$gQuestionMark = 115;$gOutPrint = '那么接下来的问题是：它的身躯是——？\n（圆锥形，且没有腿回复“1”；不是圆锥形，且生有腿回复“2”）'};
+                if $gQuestionMark == 114 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是拜亚基！\n（本次辨识结束）'};
+                if $gQuestionMark == 112 {$gQuestionMark = 114;$gOutPrint = '那么接下来的问题是：它生有——？\n（径向对称结构与眼梗回复“1”；左右对称结构且没有眼梗回复“2”）'};
+                if $gQuestionMark == 111 {$gQuestionMark = 112;$gOutPrint = '那么接下来的问题是：它生有眼睛吗？\n（没有眼睛回复“1”；有眼睛回复“2”）'};
+                if $gQuestionMark == 113 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是犹格斯真菌！\n（本次辨识结束）'};
+                if $gQuestionMark == 121 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是食尸鬼！\n（本次辨识结束）'};
+                if $gQuestionMark == 120 {$gQuestionMark = 121;$gOutPrint = '那么接下来的问题是：它的皮肤——？\n（泛绿且潮湿，该生物有带蹼的指爪且是水生生物回复“1”；肮脏且覆土，该生物生有半蹄一样的足部与混有犬类特征的脸回复“2”）'};
+                if $gQuestionMark == 119 {$gQuestionMark = 120;$gOutPrint = '那么接下来的问题是：它的皮肤——？\n（皱皱巴巴回复“1”；宽松且没有大规模的褶皱回复“2”）'};
+                if $gQuestionMark == 124 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是月兽！\n（本次辨识结束）'};
+                if $gQuestionMark == 129 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是夏塔克！\n（本次辨识结束）'};
+                if $gQuestionMark == 232 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是哈冈格-尔约尼斯！\n（本次辨识结束）'};
+                if $gQuestionMark == 231 {$gQuestionMark = 232;$gOutPrint = '那么接下来的问题是：它的嘴是否——？\n（长在长口器的尖端，而且它生活在丛林中回复“1”；长有玻璃般的尖牙，并且它长有多于两只眼睛回复“2”；一副自命不凡的样子，牙齿突出，而且是在神庙或是洞穴中碰见回复“3”）'};
+                if $gQuestionMark == 230 {$gQuestionMark = 231;$gOutPrint = '那么接下来的问题是：在体型上，它是否——？\n（远小于人类，并且有一条无毛长尾回复“1”；远大于人类回复“2”）'};
+                if $gQuestionMark == 227 {$gQuestionMark = 230;$gOutPrint = '那么接下来的问题是：它有人形的躯干吗？\n（是的，而且它身体的下部演变成一条触肢回复“1”；不是很像人形回复“2”）'};
+                if $gQuestionMark == 226 {$gQuestionMark = 227;$gOutPrint = '那么接下来的问题是：它发光吗？\n（发光回复“1”；不发光回复“2”）'};
+                if $gQuestionMark == 219 {$gQuestionMark = 226;$gOutPrint = '那么接下来的问题是：它有眼睛吗？\n（不，但它有在嘴部的触手，并且长得大概就像癞蛤蟆回复“1”；是，而且一般和癞蛤蟆不太像回复“2”）'};
+                if $gQuestionMark == 217 {$gQuestionMark = 219;$gOutPrint = '那么接下来的问题是：它是二足动物吗？\n（是，而且是类人生物回复“1”；不是回复“2”）'};
+                if $gQuestionMark == 211 {$gQuestionMark = 217;$gOutPrint = '那么接下来的问题是：它长得像蜘蛛吗？\n（像回复“1”；不像回复“2”）'};
+                if $gQuestionMark == 21 {$gQuestionMark = 211;$gOutPrint = '那么接下来的问题是：它的足部是？\n（蹼足回复“1”；并非蹼足回复“2”）'};
+                if $gQuestionMark == 27 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是布鲁噗！\n（本次辨识结束）'};
+                if $gQuestionMark == 22 {$gQuestionMark = 27;$gOutPrint = '那么接下来的问题是：它的肢数是固定的？即便可能是从身体中新生成的。\n（是回复“1”；不，并且那笨重退化的肢体是透明的回复“2”；两者都有可能回复"3"）'};
+                if $gQuestionMark == 26 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是巴西利斯克！\n（本次辨识结束）'};
+                if $gQuestionMark == 24 {$gQuestionMark = 26;$gOutPrint = '那么接下来的问题是：它——？\n（像热带的鸟并且闪亮的羽毛回复“1”；类似爬行生物，有毒性回复“2”）'};
+                if $gQuestionMark == 23 {$gQuestionMark = 24;$gOutPrint = '那么接下来的问题是：它长得像鸟并且长有羽毛？\n（不，羽毛和喙都没有回复“1”；是的回复“2”）'};
+                if $gQuestionMark == 25 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是夜魇！\n（本次辨识结束）'};
+                if $gQuestionMark == 28 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是云兽！\n（本次辨识结束）'};
+                if $gQuestionMark == 210 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是卡拉卡尔的仆从！\n（本次辨识结束）'};
+                if $gQuestionMark == 29 {$gQuestionMark = 210;$gOutPrint = '那么接下来的问题是：那漂浮的生物？\n（长得像蝾螈一般，并且有尾巴和蹼足回复“1”；是一个能量体并且有闪电状的肢体回复“2”）'};
+                if $gQuestionMark == 216 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是伊伯的可怖之物！\n（本次辨识结束）'};
+                if $gQuestionMark == 215 {$gQuestionMark = 216;$gOutPrint = '那么接下来的问题是：它有多少条腿？\n（两条，长在它那蠕虫般的躯体上回复“1”；两条，长在它那绿色的，有橡胶质感的躯体上回复“2”；四条，且长有许多吸盘回复“3”）'};
+                if $gQuestionMark == 213 {$gQuestionMark = 215;$gOutPrint = '那么接下来的问题是：它长毛吗？\n（是的，而且它看起来就像在睡觉回复“1”；不长毛回复“2”）'};
+                if $gQuestionMark == 212 {$gQuestionMark = 213;$gOutPrint = '那么接下来的问题是：它的头上有触手或是触角吗？\n（有回复“1”；没有回复“2”）'};
+                if $gQuestionMark == 214 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是月兽！\n（本次辨识结束）'};
+                if $gQuestionMark == 218 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是冷蛛！\n（本次辨识结束）'};
+                if $gQuestionMark == 225 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是撒托古亚！\n（本次辨识结束）'};
+                if $gQuestionMark == 223 {$gQuestionMark = 225;$gOutPrint = '那么接下来的问题是：这个大型类人生物？\n（至少15英尺高，具有退化的口器回复“1”；至少8英尺高，长毛，且肥胖回复“2”）'};
+                if $gQuestionMark == 222 {$gQuestionMark = 223;$gOutPrint = '那么接下来的问题是：它和人类尺寸相近？\n（是回复“1”；不是回复“2”）'};
+                if $gQuestionMark == 221 {$gQuestionMark = 222;$gOutPrint = '那么接下来的问题是：它能跳吗？\n（是的，而且它有一张半人类的脸，但没有鼻子回复“1”；不能回复“2”）'};
+                if $gQuestionMark == 220 {$gQuestionMark = 221;$gOutPrint = '那么接下来的问题是：它的体型？\n（较小，以及它有条长长的无毛尾巴回复“1”；和人相似但比人大回复“2”）'};
+                if $gQuestionMark == 224 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是梦境诸神！\n（本次辨识结束）'};
+                if $gQuestionMark == 229 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是来自土星的猫！\n（本次辨识结束）'};
+                if $gQuestionMark == 228 {$gQuestionMark = 229;$gOutPrint = '那么接下来的问题是：它——？\n（没有腿而且呈火红色回复“1”；内部发热，长有宝石般的瘤点回复“2”）'}
+                %}
+                *翻书\n{$gOutPrint}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: "3"
+        - condType: exprTrue
+          value: $gBookSearch == 1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {%
+                if $gQuestionMark == 13 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是奈亚拉托提普！\n（本次辨识结束）'};
+                if $gQuestionMark == 27 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是外神子嗣！\n（本次辨识结束）'};
+                if $gQuestionMark == 214 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是祖各！\n（本次辨识结束）'};
+                if $gQuestionMark == 216 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是血吸蛙！\n（本次辨识结束）'};
+                if $gQuestionMark == 224 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是冷民！\n（本次辨识结束）'};
+                if $gQuestionMark == 232 {$gQuestionMark = 0;$gBookSearch = 0;$gOutPrint = '我知道了！这玩意是撒托古亚！\n（本次辨识结束）'}
+                %}
+                *翻书\n{$gOutPrint}
+              - 1
+name: 洛氏恐怖辨识图鉴.yaml
+author:
+    - 云陌（1723918372）
+version: "1.0.0"
+createTimestamp: 1661093975
+updateTimestamp: 1661093975
+desc: "参照某洛氏恐怖辨识图鉴的速查问答制成，值得注意的是该版本大部分基于coc6，且包含有某些幻梦境拓展。作者不保证翻译准确性，一切以书上为准。"

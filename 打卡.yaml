@@ -1,0 +1,47 @@
+enable: true
+interval: 0
+items:
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 打卡
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {% if $m打卡!=$tDate {$t标记=1} else {$t标记=0};
+                if $t标记==1 {$m打卡=$tDate};
+                if $t标记==1 {$m累计打卡天数=$m累计打卡天数+1};
+                if $t标记==1 {$m金币=$m金币+100};
+                if $t标记==1 {$t输出=`{$t玩家}已打卡。这是你第{$m累计打卡天数}次打卡，你有{$m金币}金币。`};
+                if $t标记!=1 {$t输出=`{$t玩家}今天已经打过卡了。`}
+                 %}
+                {$t输出}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^购买(.+)
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {% if 1 {$tRand=5d10};
+                if $tRand<=$m金币 {$t标记=1} else {$t标记=0};
+                if $t标记==1 {$m金币=$m金币-$tRand};
+                if $t标记==1 {$t输出=`{$t1}标价为{$tRand}。{$t玩家}成功购买了{$t1}，还剩{$m金币}金币。这真的值得吗？`};
+                if $t标记==0 {$t输出=`{$t玩家}只有{$m金币}，而{$t1}的标价为{$tRand}。看来想踏入消费主义陷阱都没钱的人是存在的。`}
+                 %}
+                {$t输出}
+              - 1
+name: 打卡.yaml
+author:
+    - 无名海豹
+version: ""
+createTimestamp: 1661343727
+updateTimestamp: 1661343727
+desc: ""

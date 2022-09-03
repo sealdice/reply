@@ -1,0 +1,91 @@
+enable: true
+interval: 0
+items:
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^记录(\d)-(\S+)
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 好的，记录{$t1}是'{$t2}'{% if $t1=='1' {$gt1=$t2}%}{% if $t1=='2' {$gt2=$t2}%}{% if $t1=='3' {$gt3=$t2}%}{% if $t1=='4' {$gt4=$t2}%}{% if $t1=='5' {$gt5=$t2}%}{% if $t1=='6' {$gt6=$t2}%}{% if $t1=='7' {$gt7=$t2}%}{% if $t1=='8' {$gt8=$t2}%}{% if $t1=='9' {$gt9=$t2}%}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^查看(\d)
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {%
+                $t1=='1' ? `第{$t1}条记录是:{$gt1}`,
+                $t1=='2' ? `第{$t1}条记录是:{$gt2}`,
+                $t1=='3' ? `第{$t1}条记录是:{$gt3}`,
+                $t1=='4' ? `第{$t1}条记录是:{$gt4}`,
+                $t1=='5' ? `第{$t1}条记录是:{$gt5}`,
+                $t1=='6' ? `第{$t1}条记录是:{$gt6}`,
+                $t1=='7' ? `第{$t1}条记录是:{$gt7}`,
+                $t1=='8' ? `第{$t1}条记录是:{$gt8}`,
+                $t1=='9' ? `第{$t1}条记录是:{$gt9}`,
+                1 ? '你在找什么啊？'
+                %}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 查看全部
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {% if $gt1 == 0 {$gt1=''} %}
+                {% if $gt2 == 0 {$gt2=''} %}
+                {% if $gt3 == 0 {$gt3=''} %}
+                {% if $gt4 == 0 {$gt4=''} %}
+                {% if $gt5 == 0 {$gt5=''} %}
+                {% if $gt6 == 0 {$gt6=''} %}
+                {% if $gt7 == 0 {$gt7=''} %}
+                {% if $gt8 == 0 {$gt8=''} %}
+                {% if $gt9 == 0 {$gt9=''} %}{%$to=''%}{% if $gt1 !='' {$to=`{$to}第1条记录是:{$gt1}\n`}%}{% if $gt2 !='' {$to=`{$to}第2条记录是:{$gt2}\n`}%}{% if $gt3 !='' {$to=`{$to}第3条记录是:{$gt3}\n`}%}{% if $gt4 !='' {$to=`{$to}第4条记录是:{$gt4}\n`}%}{% if $gt5 !='' {$to=`{$to}第5条记录是:{$gt5}\n`}%}{% if $gt6 !='' {$to=`{$to}第6条记录是:{$gt6}\n`}%}{% if $gt7 !='' {$to=`{$to}第7条记录是:{$gt7}\n`}%}{% if $gt8 !='' {$to=`{$to}第8条记录是:{$gt8}\n`}%}{% if $gt9 !='' {$to=`{$to}第9条记录是:{$gt9}\n`}%}{% if $to == '' {$to=`你确定真的记录过什么吗？` }%}唔，保存的记录是：\n{$to}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^删除(\d)
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - |-
+                {%
+                $t1=='1' ? `第{$t1}条记录已清除{$gt1=''}`,
+                $t1=='2' ? `第{$t1}条记录已清除{$gt2=''}`,
+                $t1=='3' ? `第{$t1}条记录已清除{$gt3=''}`,
+                $t1=='4' ? `第{$t1}条记录已清除{$gt4=''}`,
+                $t1=='5' ? `第{$t1}条记录已清除{$gt5=''}`,
+                $t1=='6' ? `第{$t1}条记录已清除{$gt6=''}`,
+                $t1=='7' ? `第{$t1}条记录已清除{$gt7=''}`,
+                $t1=='8' ? `第{$t1}条记录已清除{$gt8=''}`,
+                $t1=='9' ? `第{$t1}条记录已清除{$gt9=''}`,
+                1 ? '你在找什么啊？'
+                %}
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 删除全部
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - 全部记录已重置。{% if 1 {$gt1=0} %}{% if 1 {$gt2=0} %}{% if 1 {$gt3=0} %}{% if 1 {$gt4=0} %}{% if 1 {$gt5=0} %}{% if 1 {$gt6=0} %}{% if 1 {$gt7=0} %}{% if 1 {$gt8=0} %}{% if 1 {$gt9=0} %}
+              - 1

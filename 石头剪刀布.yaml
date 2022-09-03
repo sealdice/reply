@@ -1,0 +1,47 @@
+enable: true
+interval: 0
+items:
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 开始石头剪刀布
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - '{% if $mRockPS==0 {$mRockPS=1;$mPlayerWin=0;$mPlayerLose=0;$mPlayerTime=0;$t输出=`{$t玩家}的游戏开始了，请发送“石头”，“剪刀”或“布”来进行游戏。`} else {$t输出=`有正在进行的游戏，请发送“石头”，“剪刀”或“布”来继续游戏，或用“结束石头剪刀布”来结束游戏。这是你的第{$mPlayerTime}场游戏。`} %}{$t输出}'
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchRegex
+          value: ^石头$|^剪刀$|^布$
+        - condType: exprTrue
+          value: $mRockPS==1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - "{% \nif 1 {$tRand=d3;$tDicePlay=$tRand==1?\"石头\",$tRand==2?\"剪刀\",1?\"布\"};\nif $t0==$tDicePlay {$t输出=`那我出{$tDicePlay}！{$t玩家}出的是{$t0}啊，我们平局了。`;$mPlayerTime=$mPlayerTime+1};\nif $t0==\"剪刀\"&&$tDicePlay==\"石头\"||($t0==\"石头\"&&$tDicePlay==\"布\")||($t0==\"布\"&&$tDicePlay==\"剪刀\") {$t输出=`那我出{$tDicePlay}！{$t玩家}出的是{$t0}啊，我赢了。`;$mPlayerTime=$mPlayerTime+1;$mPlayerLose=$mPlayerLose+1};\nif $t0==\"石头\"&&$tDicePlay==\"剪刀\"||($t0==\"布\"&&$tDicePlay==\"石头\")||($t0==\"剪刀\"&&$tDicePlay==\"布\") {$t输出=`那我出{$tDicePlay}！{$t玩家}出的是{$t0}啊，你赢了。`;$mPlayerTime=$mPlayerTime+1;$mPlayerWin=$mPlayerWin+1}\n %}\n{$t输出}"
+              - 1
+    - enable: true
+      conditions:
+        - condType: textMatch
+          matchType: matchExact
+          value: 结束石头剪刀布
+        - condType: exprTrue
+          value: $mRockPS==1
+      results:
+        - resultType: replyToSender
+          delay: 0
+          message:
+            - - "{$t玩家}在这场游戏中共进行了{$mPlayerTime}次游戏，赢了{$mPlayerWin}次，输了{$mPlayerLose}次，胜率{% \n$mPlayerWin*5>=$mPlayerTime*4 ?\"大于80%，近乎奇迹！\",\n$mPlayerWin*3>=$mPlayerTime ?\"大于33%，超过了一般人\",\n$mPlayerWin*10>=$mPlayerTime  ?\"大于10%，只能说还行，不是最差。\",\n1?\"小于10%，你要不别抽卡了吧。\"\n %}\n{% if 1 {$mRockPS=0}%}"
+              - 1
+name: 石头剪刀布.yaml
+author:
+    - 无名海豹
+version: ""
+createTimestamp: 1661343642
+updateTimestamp: 1661343642
+desc: ""
