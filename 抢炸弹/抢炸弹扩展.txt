@@ -1,0 +1,157 @@
+{
+  "title": "某人的自定义配置",
+  "items": {
+    "抢炸弹": {
+      "◆◆设置说明◆◆": [
+        [
+          "本来是想写一些设置项说明的，但是现有的状态都被写到变量里了阿巴巴。\n本游戏为开发中的稳定版，虽然有点无聊，但是还算完善。\n本来预期计划中还有结算，名片，排行榜，勋章系统，称号系统。但是做到一半发现游戏本身蛮无聊，豹骰的触发间隔对于这种抢发送的游戏也很难受，于是咱就跑去做别的了。只能说有生之年了。\n好了，2177407946是我的QQ，有什么建议，bug，交流意愿，或是询问自定义回复编写都可以来找我。\n（研究豹骰的讨论组801541033）\n下面是一些说明：\n\n1.本游戏由数字炸弹改编而来，在此感谢其编写者（虽然咱不知道编写者是谁）\n2.本游戏为练手的作品，只是探索分享以及尝试自定义回复的可能性，所有会有一些不必要的封装调用，奇奇怪怪的写法，而且没有精简打磨，所以读起来会有点头痛。虽然简陋，但是还是希望能够为您提供一些新的思路\n3.返回方法，利用拓展实际上是执行内部语句并返回字符串，写的几个方法，可以方便的赋值使用\n4.布尔方法，特殊的返回方法，会返回文本\"1\"，或者空\"\"。由于表达式对于零空字符视为假，非零非空为真，可以方便的写进触发表达式里，也可以组合连用，对于权限设置很方便\n5.纯文本，就像你在这个页面看到的那样，可以用来寄存qq号，方法调用他做账号响应检测，或者写成1，2，3设置项，实际上模式切换指令也可以改成检测某些纯文本的内容\n6.纯文本回复，就像你在抢炸弹文本扩展看到的那样，模仿骰子自带的文本设置做的，可以方便的自定回复语句，不必再跑到回复里改了。改成这样后，就算对于不了解海豹语法的骰主，也可以轻松的自定义回复了\n7.这里有几个自调用的递归方法，咱还没试过没写好跳出会怎样，担心炸骰，有人替我尝试一下就再好不过了/笑\n8.最后，如果有想法，意见，反馈之类的，欢迎来交流，感激不尽，咱这边还存了好多~没能写出来的点子和想法可以交流\n9.咱去研究牌堆了,bye~\n\n——————啥也不会的乌鸦",
+          1
+        ]
+      ],
+      "◆管理一ID": [
+        [
+          "2177407946",
+          1
+        ]
+      ],
+      "◆管理三ID": [
+        [
+          "",
+          1
+        ]
+      ],
+      "◆管理二ID": [
+        [
+          "",
+          1
+        ]
+      ],
+      "◆管理五ID": [
+        [
+          "",
+          1
+        ]
+      ],
+      "◆管理四ID": [
+        [
+          "",
+          1
+        ]
+      ],
+      "位置判断": [
+        [
+          "{\n\nif1{$tLTnumber=0};\nif1{$tGTnumber=0};\n\nif$t猜数<$gMathboom1&&$gMathboom1!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom1&&$gMathboom1!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom2&&$gMathboom2!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom2&&$gMathboom2!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom3&&$gMathboom3!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom3&&$gMathboom3!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom4&&$gMathboom4!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom4&&$gMathboom4!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom5&&$gMathboom5!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom5&&$gMathboom5!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom6&&$gMathboom6!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom6&&$gMathboom6!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom7&&$gMathboom7!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom7&&$gMathboom7!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom8&&$gMathboom8!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom8&&$gMathboom8!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom9&&$gMathboom9!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom9&&$gMathboom9!=0{$tGTnumber=$tGTnumber+1};\n\nif$t猜数<$gMathboom10&&$gMathboom10!=0{$tLTnumber=$tLTnumber+1};\nif$t猜数>$gMathboom10&&$gMathboom10!=0{$tGTnumber=$tGTnumber+1}\n\n}",
+          1
+        ]
+      ],
+      "凑桌": [
+        [
+          "{\n\n$t有效凑桌=0;\n$g凑成=0;\nif$g凑桌计次<3&&抢炸弹:凑桌人布尔==\"\"{$t有效凑桌=1};\nif$t有效凑桌==1{抢炸弹:添加凑桌人;$g凑桌计次=$g凑桌计次+1};\nif$g凑桌计次>=3{抢炸弹:清除凑桌;$g凑成=1}\n\n}",
+          1
+        ]
+      ],
+      "凑桌人布尔": [
+        [
+          "{\n\nif$t账号ID_RAW==$g凑桌人1||$t账号ID_RAW==$g凑桌人2||$t账号ID_RAW==$g凑桌人3{$t布尔=1}else{$t布尔=\"\"}\n\n}{$t布尔}",
+          1
+        ]
+      ],
+      "删除凑桌人": [
+        [
+          "{\n\nif$g凑桌人1==$tSearch||$tSearch==0{$g凑桌人1=0};\nif$g凑桌人2==$tSearch||$tSearch==0{$g凑桌人2=0};\nif$g凑桌人3==$tSearch||$tSearch==0{$g凑桌人3=0}\n\n}",
+          1
+        ]
+      ],
+      "回复处理": [
+        [
+          "{\n\n抢炸弹:汉符显示处理;\n\nif$tGuess==0{$t总输出=抢炸弹文本:猜错回复};\nif$tGuess==1&&$g余弹数!=0{$t总输出=抢炸弹文本:猜中回复};\nif$tGuess==1&&$g余弹数==0{$t总输出=抢炸弹文本:终结游戏;抢炸弹:结束游戏}\n\n}",
+          1
+        ]
+      ],
+      "开局响应布尔": [
+        [
+          "{\n\nif$g开局模式==2||($g开局模式==1&&(抢炸弹:开桌人布尔==\"1\"||抢炸弹:管理员布尔==\"1\")){$t布尔=1}else{$t布尔=\"\"}\n\n}{$t布尔}",
+          1
+        ]
+      ],
+      "开桌人布尔": [
+        [
+          "{\n\nif$t账号ID_RAW==$g开桌人1||$t账号ID_RAW==$g开桌人2||$t账号ID_RAW==$g开桌人3||$t账号ID_RAW==$g开桌人4||$t账号ID_RAW==$g开桌人5||$t账号ID_RAW==$g开桌人6||$t账号ID_RAW==$g开桌人7||$t账号ID_RAW==$g开桌人8||$t账号ID_RAW==$g开桌人9||$t账号ID_RAW==$g开桌人10{$t布尔=1}else{$t布尔=\"\"}\n\n}{$t布尔}",
+          1
+        ]
+      ],
+      "数为炸弹布尔": [
+        [
+          "{\n\nif$t数==$gMathboom1||$t数==$gMathboom2||$t数==$gMathboom3||$t数==$gMathboom4||$t数==$gMathboom5||$t数==$gMathboom6||$t数==$gMathboom7||$t数==$gMathboom8||$t数==$gMathboom9||$t数==$gMathboom10{$t布尔=1}else{$t布尔=\"\"}\n\n}{$t布尔}",
+          1
+        ]
+      ],
+      "数转汉符返回": [
+        [
+          "{\n\nif$t输入==0{$t返回=\"零\"};\nif$t输入==1{$t返回=\"一\"};\nif$t输入==2{$t返回=\"二\"};\nif$t输入==3{$t返回=\"三\"};\nif$t输入==4{$t返回=\"四\"};\nif$t输入==5{$t返回=\"五\"};\nif$t输入==6{$t返回=\"六\"};\nif$t输入==7{$t返回=\"七\"};\nif$t输入==8{$t返回=\"八\"};\nif$t输入==9{$t返回=\"九\"};\nif$t输入==10{$t返回=\"十\"}\n\n}{$t返回}",
+          1
+        ]
+      ],
+      "新炸弹": [
+        [
+          "{\n\n$t数=d100;\nif抢炸弹:数为炸弹布尔{抢炸弹:新炸弹}else{$t新炸弹=$t数}\n\n}",
+          1
+        ]
+      ],
+      "汉符显示处理": [
+        [
+          "{\n\n$t输入=$g余弹数;\n$t余弹汉符=抢炸弹:数转汉符返回;\n\n$t输入=$tLTnumber;\n$t小于个数汉符=抢炸弹:数转汉符返回;\n\n$t输入=$tGTnumber;\n$t大于个数汉符=抢炸弹:数转汉符返回;\n\n$t猜次汉符=\"\";\n\nif$g猜次/1000!=0{$t输入=$g猜次/1000;$t猜次汉符=`{$t猜次汉符}{抢炸弹:数转汉符返回}千`};\n\n\nif$g猜次/100!=0&&$g猜次%1000>=100{$t输入=($g猜次%1000)/100;$t猜次汉符=`{$t猜次汉符}{抢炸弹:数转汉符返回}百`};\nif$g猜次/100!=0&&$g猜次%1000<100&&$g猜次%100>=10{$t输入=($g猜次%1000)/100;$t猜次汉符=`{$t猜次汉符}{抢炸弹:数转汉符返回}`};\n\nif$g猜次/10!=0&&$g猜次>=20&&$g猜次%100>=10{$t输入=($g猜次%100)/10;$t猜次汉符=`{$t猜次汉符}{抢炸弹:数转汉符返回}十`};\nif$g猜次/10!=0&&$g猜次>=20&&$g猜次%100<10{$t输入=($g猜次%100)/10;$t猜次汉符=`{$t猜次汉符}{抢炸弹:数转汉符返回}`};\nif$g猜次/10!=0&&$g猜次<20{$t输入=($g猜次%100)/10;$t猜次汉符=`{$t猜次汉符}十`};\n\n\nif$g猜次%10!=0{$t输入=$g猜次%10;$t猜次汉符=`{$t猜次汉符}{抢炸弹:数转汉符返回}`}\n\n}",
+          1
+        ]
+      ],
+      "添加凑桌人": [
+        [
+          "{\n\n$t执行=0;\n\nif$g凑桌人1==0&&$g凑桌人1!=$t账号ID_RAW&&$t执行==0{$g凑桌人1=$t账号ID_RAW;$t执行=1};\nif$g凑桌人2==0&&$g凑桌人2!=$t账号ID_RAW&&$t执行==0{$g凑桌人2=$t账号ID_RAW;$t执行=1};\nif$g凑桌人3==0&&$g凑桌人3!=$t账号ID_RAW&&$t执行==0{$g凑桌人3=$t账号ID_RAW;$t执行=1}\n\n}",
+          1
+        ]
+      ],
+      "清除凑桌": [
+        [
+          "{\nif1{$g凑桌计次=0;\n$tSearch=0;\n抢炸弹:删除凑桌人}\n}",
+          1
+        ]
+      ],
+      "猜中归零": [
+        [
+          "{\n\n$t执行=0;\nif$gMathboom1==$t猜数{$gMathboom1=0;$t执行=1};\nif$gMathboom2==$t猜数{$gMathboom2=0;$t执行=1};\nif$gMathboom3==$t猜数{$gMathboom3=0;$t执行=1};\nif$gMathboom4==$t猜数{$gMathboom4=0;$t执行=1};\nif$gMathboom5==$t猜数{$gMathboom5=0;$t执行=1};\nif$gMathboom6==$t猜数{$gMathboom6=0;$t执行=1};\nif$gMathboom7==$t猜数{$gMathboom7=0;$t执行=1};\nif$gMathboom8==$t猜数{$gMathboom8=0;$t执行=1};\nif$gMathboom9==$t猜数{$gMathboom9=0;$t执行=1};\nif$gMathboom10==$t猜数{$gMathboom10=0;$t执行=1}\n\n}",
+          1
+        ]
+      ],
+      "生成炸弹": [
+        [
+          "{\nif1{\n$gMathboom1=0;\n$gMathboom2=0;\n$gMathboom3=0;\n$gMathboom4=0;\n$gMathboom5=0;\n$gMathboom6=0;\n$gMathboom7=0;\n$gMathboom8=0;\n$gMathboom9=0;\n$gMathboom10=0};\n\nif1{\n抢炸弹:新炸弹;\n$gMathboom1=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom2=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom3=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom3=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom4=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom5=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom5=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom6=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom7=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom8=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom9=$t新炸弹;\n抢炸弹:新炸弹;\n$gMathboom10=$t新炸弹}\n\n}",
+          1
+        ]
+      ],
+      "管理员布尔": [
+        [
+          "{\n\nif$t账号ID_RAW==抢炸弹:◆管理一ID||$t账号ID_RAW==抢炸弹:◆管理二ID||$t账号ID_RAW==抢炸弹:◆管理三ID||$t账号ID_RAW==抢炸弹:◆管理四ID||$t账号ID_RAW==抢炸弹:◆管理五ID{$t布尔=1}else{$t布尔=\"\"}\n\n}{$t布尔}",
+          1
+        ]
+      ],
+      "结束游戏": [
+        [
+          "{\nif1{$gPlaying=0;\n抢炸弹:清除凑桌}\n}",
+          1
+        ]
+      ],
+      "赋数循环": [
+        [
+          "{\nif$t数位==0{$t数位=3};\n\nif$t数位==3{$t数=$t百位};\nif$t数位==2{$t数=$t十位};\nif$t数位==1{$t数=$t个位};\n\nif$t数==\"0\"||$t数==\"\"{$t数=0};\nif$t数==\"1\"{$t数=1};\nif$t数==\"2\"{$t数=2};\nif$t数==\"3\"{$t数=3};\nif$t数==\"4\"{$t数=4};\nif$t数==\"5\"{$t数=5};\nif$t数==\"6\"{$t数=6};\nif$t数==\"7\"{$t数=7};\nif$t数==\"8\"{$t数=8};\nif$t数==\"9\"{$t数=9};\nif$t数==\"10\"{$t数=10};\n\nif$t数位==3{$t百位=$t数};\nif$t数位==2{$t十位=$t数};\nif$t数位==1{$t个位=$t数};\n\nif1{$t数位=$t数位-1};\nif$t数位!=0{抢炸弹:赋数循环}\n}",
+          1
+        ]
+      ],
+      "输入转数值": [
+        [
+          "{\n$t百位=0;\n$t十位=0;\n$t个位=0;\n\nif$t1!=\"\"{$t个位=$t1};\nif$t2!=\"\"{$t个位=$t2;$t十位=$t1};\nif$t3!=\"\"{$t个位=$t3;$t十位=$t2;$t百位=$t1};\n\n抢炸弹:赋数循环;\n\nif1{$t数=$t个位*1+$t十位*10+$t百位*100}\n}",
+          1
+        ]
+      ]
+    }
+  }
+}
