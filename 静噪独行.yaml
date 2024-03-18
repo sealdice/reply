@@ -12,7 +12,7 @@ items:
           message:
             - - |-
                 单人游戏书《静噪独行》（Alone Against the Static）by Chaosium
-                B. W. Holland 著，JohNSoN 译
+                B. W. Holland 著，JohNSoN<lee_johnson@qq.com> 译并适配海豹
 
                 在信号范围之外发生的 1990 年代单人冒险。
                 一对关系岌岌可危的年轻伴侣来到南达科他州的黑山峰，期待着一间小屋中的一段假期能为两人的关系带来转机。然而，恐怖正在山岳间涌动，等待他们的到来。
@@ -1345,7 +1345,7 @@ items:
 
                 $t1=='88' ?
                 `
-                尽你仍然因为冲澡微微发热，你还是不由得打了个冷颤。你把焦虑压到一边。这门可能只是自己开了，小屋里的一切都有点不好用。
+                尽管你仍然因为冲澡微微发热，你还是不由得打了个冷颤。你把焦虑压到一边。这门可能只是自己开了，小屋里的一切都有点不好用。
                 该穿衣服了。
 
                 转到 91。
@@ -5065,7 +5065,7 @@ items:
 name: 静噪独行.yaml
 author:
     - JohNSoN<lee_johnson@qq.com>
-version: ""
+version: "1.0.1"
 createTimestamp: 1709002446
 updateTimestamp: 1709002446
 desc: ""
